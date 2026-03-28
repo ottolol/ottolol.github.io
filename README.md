@@ -24,7 +24,7 @@
 ![CSS Variables](https://img.shields.io/badge/CSS_Variables-1572B6?logo=css3&logoColor=white)
 
 ### Architecture
-![FSD](https://img.shields.io/badge/Feature--Sliced_Design-0D1117?logo=data:image/svg+xml;base64,&logoColor=white)
+![FSD](https://img.shields.io/badge/Feature--Sliced_Design-FSD-0D1117)
 ![Monorepo](https://img.shields.io/badge/Monorepo-pnpm_workspaces-F69220?logo=pnpm&logoColor=white)
 ![REST API](https://img.shields.io/badge/REST_API-009688?logoColor=white)
 ![GraphQL](https://img.shields.io/badge/GraphQL-E10098?logo=graphql&logoColor=white)
