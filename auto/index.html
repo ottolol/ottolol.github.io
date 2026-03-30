@@ -401,6 +401,36 @@
     font-size: 36px;
     font-weight: 700;
     color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .tg-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(59,184,195,0.1);
+    border: 1px solid rgba(59,184,195,0.25);
+    border-radius: 28px;
+    padding: 14px 28px;
+    text-decoration: none;
+    color: var(--teal);
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+  }
+
+  .tg-link:hover {
+    background: rgba(59,184,195,0.2);
+    border-color: rgba(59,184,195,0.4);
+    transform: translateY(-2px);
+  }
+
+  .tg-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--teal);
   }
 
   /* ===== PROGRESS BAR ===== */
@@ -503,40 +533,46 @@
     50% { opacity: 1; }
   }
 
-  /* ===== SWIPE HINT (mobile) ===== */
-  .swipe-hint {
-    position: fixed;
-    bottom: 50px;
+  /* ===== SWIPE CTA (title slide, mobile only) ===== */
+  .swipe-cta {
+    display: none;
+    position: absolute;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
-    display: none;
-    flex-direction: column;
+    z-index: 10;
     align-items: center;
-    gap: 8px;
-    z-index: 101;
-    animation: swipeHintFade 3s ease 2s both;
+    gap: 6px;
+    background: rgba(59,184,195,0.1);
+    border: 1px solid rgba(59,184,195,0.25);
+    border-radius: 24px;
+    padding: 10px 22px;
+    animation: swipeCtaPulse 2.5s ease-in-out infinite;
   }
 
-  .swipe-hint-arrow {
-    font-size: 24px;
-    color: rgba(255,255,255,0.3);
-    animation: swipeMove 1.5s ease-in-out infinite;
+  .swipe-cta-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
   }
 
-  .swipe-hint-text {
-    font-size: 12px;
-    color: rgba(255,255,255,0.2);
+  .swipe-cta-chevron {
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--teal);
+    display: inline-block;
+    animation: chevronSlide 1.5s ease-in-out infinite;
   }
 
-  @keyframes swipeMove {
+  @keyframes swipeCtaPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes chevronSlide {
     0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(15px); }
-  }
-
-  @keyframes swipeHintFade {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; pointer-events: none; }
+    50% { transform: translateX(8px); }
   }
 
   /* ===== DOTS NAV (mobile) ===== */
@@ -736,7 +772,7 @@
     .autoplay-indicator-inline { display: flex; }
 
     .dots-nav { display: flex; }
-    .swipe-hint { display: flex; }
+    .swipe-cta { display: flex; }
 
     /* Lock everything to viewport */
     .slide {
@@ -776,6 +812,10 @@
   <div class="title-main"><span>Автоматизация</span> процессов</div>
   <div class="title-sub">Результаты внедрения</div>
   <div class="title-line"></div>
+  <div class="swipe-cta" id="swipeCta">
+    <span class="swipe-cta-text">Свайпни</span>
+    <span class="swipe-cta-chevron">›</span>
+  </div>
 </div>
 
 <!-- SLIDE 2: SCRIPT 1 -->
@@ -902,7 +942,13 @@
     <img src="logo.png" alt="УТНКР">
   </div>
   <div class="final-text anim-2">Спасибо за внимание</div>
-  <div class="final-text-bold anim-3">Вопросы?</div>
+  <div class="final-text-bold anim-3">Связаться</div>
+  <a href="https://t.me/Sveshnikov_Aleksey" target="_blank" class="tg-link anim-4">
+    <svg class="tg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.4-.27-2.09-.49-.84-.28-1.51-.42-1.45-.89.03-.25.38-.5 1.04-.76 4.09-1.78 6.81-2.96 8.18-3.52 3.9-1.62 4.7-1.9 5.23-1.91.12 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .37z" fill="currentColor"/>
+    </svg>
+    <span>@Sveshnikov_Aleksey</span>
+  </a>
 </div>
 
 <!-- PROGRESS BAR -->
@@ -919,11 +965,6 @@
   <div class="dot"></div>
 </div>
 
-<!-- Swipe hint for mobile -->
-<div class="swipe-hint" id="swipeHint">
-  <div class="swipe-hint-arrow">→</div>
-  <div class="swipe-hint-text">Свайпайте для навигации</div>
-</div>
 
 <div class="autoplay-indicator" id="autoplayIndicator">
   <div class="autoplay-dot"></div>
@@ -935,19 +976,22 @@
   const totalSlides = slides.length;
   let current = 0;
   let autoplayInterval = null;
-  const AUTOPLAY_DELAY = 6000;
+  const FIRST_SLIDE_DELAY = 5000;
+  const AUTOPLAY_DELAY = 8000;
 
   const dots = document.querySelectorAll('.dot');
   const inlineCounters = document.querySelectorAll('.slide-counter-inline');
+
+  function getDelay() {
+    return current === 0 ? FIRST_SLIDE_DELAY : AUTOPLAY_DELAY;
+  }
 
   function showSlide(index) {
     slides.forEach(s => s.classList.remove('active'));
     slides[index].classList.add('active');
     document.getElementById('progressBar').style.width = ((index + 1) / totalSlides * 100) + '%';
     document.getElementById('slideCounter').textContent = (index + 1) + ' / ' + totalSlides;
-    // Update dots
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
-    // Update inline counters
     inlineCounters.forEach(c => c.textContent = (index + 1) + ' / ' + totalSlides);
   }
 
@@ -963,15 +1007,22 @@
 
   const inlineAutoplay = document.querySelectorAll('.autoplay-indicator-inline');
 
+  function scheduleNext() {
+    autoplayInterval = setTimeout(() => {
+      nextSlide();
+      scheduleNext();
+    }, getDelay());
+  }
+
   function startAutoplay() {
     stopAutoplay();
-    autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY);
+    scheduleNext();
     document.getElementById('autoplayIndicator').style.display = 'flex';
     inlineAutoplay.forEach(el => el.style.display = 'flex');
   }
 
   function stopAutoplay() {
-    if (autoplayInterval) clearInterval(autoplayInterval);
+    if (autoplayInterval) clearTimeout(autoplayInterval);
     autoplayInterval = null;
     document.getElementById('autoplayIndicator').style.display = 'none';
     inlineAutoplay.forEach(el => el.style.display = 'none');
@@ -1016,9 +1067,9 @@
     // Only handle horizontal swipes (ignore vertical scrolls)
     if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipe) {
       stopAutoplay();
-      // Hide swipe hint after first swipe
-      const hint = document.getElementById('swipeHint');
-      if (hint) hint.style.display = 'none';
+      // Hide swipe CTA after first swipe
+      const cta = document.getElementById('swipeCta');
+      if (cta) cta.style.display = 'none';
 
       if (diffX > 0) {
         nextSlide(); // swipe left = next
