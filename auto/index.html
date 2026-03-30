@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>УТНКР — Автоматизация процессов</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -21,22 +21,33 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
+  html, body {
     font-family: 'Inter', sans-serif;
     background: var(--darker);
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
+    height: -webkit-fill-available;
+    height: 100dvh;
+    max-width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-overflow-scrolling: none;
+    overscroll-behavior: none;
+    touch-action: pan-x;
   }
 
   .slide {
     position: absolute;
     top: 0; left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
+    height: -webkit-fill-available;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,7 +148,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
     margin-bottom: 12px;
   }
 
@@ -413,6 +424,13 @@
     z-index: 100;
   }
 
+  .slide-counter-inline {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.25);
+    display: none;
+  }
+
   .nav-hint {
     position: fixed;
     bottom: 20px;
@@ -456,6 +474,20 @@
     display: flex;
     align-items: center;
     gap: 6px;
+  }
+
+  .autoplay-indicator-inline {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    display: none;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .autoplay-indicator-inline .autoplay-dot {
+    width: 5px;
+    height: 5px;
   }
 
   .autoplay-dot {
@@ -535,18 +567,20 @@
   /* ===== MOBILE RESPONSIVE ===== */
   @media (max-width: 768px) {
     .slide-script {
-      padding: 24px 20px;
+      padding: 20px 16px;
+      justify-content: flex-start;
+      padding-top: 24px;
     }
 
     .script-title {
-      font-size: 22px;
+      font-size: 20px;
       margin-bottom: 4px;
     }
 
     .script-desc {
       font-size: 12px;
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .script-number {
@@ -556,49 +590,60 @@
 
     .comparison {
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
+      flex: 0;
     }
 
     .card {
-      padding: 20px;
+      padding: 16px;
       border-radius: 12px;
+      flex: none;
     }
 
     .card-label {
       font-size: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .metric {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+    }
+
+    .metric:last-child {
+      margin-bottom: 0;
     }
 
     .metric-value {
-      font-size: 30px;
+      font-size: 28px;
     }
 
     .metric-unit {
-      font-size: 13px;
+      font-size: 12px;
     }
 
     .metric-label {
       font-size: 10px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .savings-badge {
       padding: 8px 14px;
       border-radius: 8px;
+      margin-top: 12px;
     }
 
     .savings-text {
       font-size: 12px;
     }
 
-    .person-icon {
-      width: 26px;
-      height: 26px;
-      font-size: 13px;
+    /* Hide person icons on mobile */
+    .icon-row {
+      display: none;
+    }
+
+    /* Inline slide counter in header */
+    .slide-counter-inline {
+      display: block;
     }
 
     /* Title slide */
@@ -622,47 +667,49 @@
 
     /* Summary slide */
     .slide-summary {
-      padding: 24px 20px;
+      padding: 24px 16px;
+      justify-content: flex-start;
+      padding-top: 24px;
     }
 
     .summary-title {
-      font-size: 24px;
-      margin-bottom: 24px;
+      font-size: 22px;
+      margin-bottom: 20px;
     }
 
     .summary-grid {
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
     .summary-card {
-      padding: 20px;
+      padding: 16px;
       border-radius: 12px;
     }
 
     .summary-card-value {
-      font-size: 36px;
+      font-size: 32px;
     }
 
     .summary-card-label {
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .summary-bottom {
-      padding: 20px;
+      padding: 16px;
       border-radius: 12px;
       flex-direction: column;
       text-align: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .summary-bottom-icon {
-      font-size: 28px;
+      font-size: 24px;
     }
 
     .summary-bottom-text {
-      font-size: 14px;
+      font-size: 13px;
     }
 
     /* Final slide */
@@ -679,12 +726,24 @@
       font-size: 26px;
     }
 
-    /* Navigation */
+    /* Navigation — hide desktop elements */
     .nav-hint { display: none; }
     .slide-counter { display: none; }
+    .progress-bar { display: none; }
+    .autoplay-indicator { display: none !important; }
+
+    /* Show inline autoplay */
+    .autoplay-indicator-inline { display: flex; }
 
     .dots-nav { display: flex; }
     .swipe-hint { display: flex; }
+
+    /* Lock everything to viewport */
+    .slide {
+      overflow: hidden;
+      max-height: 100vh;
+      max-height: -webkit-fill-available;
+    }
   }
 
   /* ===== TABLET ===== */
@@ -723,6 +782,8 @@
 <div class="slide slide-script" id="slide-1">
   <div class="script-header anim-1">
     <div class="script-number">Скрипт 01</div>
+    <div class="autoplay-indicator-inline" id="autoplayInline1"><div class="autoplay-dot"></div><span>АВТО</span></div>
+    <div class="slide-counter-inline">2 / 5</div>
   </div>
   <div class="script-title anim-1">Утренний отчёт</div>
   <div class="script-desc anim-2">Формирование СМС по подписанию КС-2, УТНКР, ФКР МО с автоматической отправкой в Telegram. Подсчёт АиП из 3-х групп. Расстановка людей и экипажей. Расчёт отработанных объектов по МКД, СКБ, Маеевка.</div>
@@ -768,6 +829,8 @@
 <div class="slide slide-script" id="slide-2">
   <div class="script-header anim-1">
     <div class="script-number">Скрипт 02</div>
+    <div class="autoplay-indicator-inline" id="autoplayInline2"><div class="autoplay-dot"></div><span>АВТО</span></div>
+    <div class="slide-counter-inline">3 / 5</div>
   </div>
   <div class="script-title anim-1">Выполнение — выверка объёмов для РКС</div>
   <div class="script-desc anim-2">Формирование итогового Excel-файла с определённым набором столбцов. Объекты сгруппированы по номеру договора и рабочим папкам КС-3.</div>
@@ -875,6 +938,7 @@
   const AUTOPLAY_DELAY = 6000;
 
   const dots = document.querySelectorAll('.dot');
+  const inlineCounters = document.querySelectorAll('.slide-counter-inline');
 
   function showSlide(index) {
     slides.forEach(s => s.classList.remove('active'));
@@ -883,6 +947,8 @@
     document.getElementById('slideCounter').textContent = (index + 1) + ' / ' + totalSlides;
     // Update dots
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    // Update inline counters
+    inlineCounters.forEach(c => c.textContent = (index + 1) + ' / ' + totalSlides);
   }
 
   function nextSlide() {
@@ -895,16 +961,20 @@
     showSlide(current);
   }
 
+  const inlineAutoplay = document.querySelectorAll('.autoplay-indicator-inline');
+
   function startAutoplay() {
     stopAutoplay();
     autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY);
     document.getElementById('autoplayIndicator').style.display = 'flex';
+    inlineAutoplay.forEach(el => el.style.display = 'flex');
   }
 
   function stopAutoplay() {
     if (autoplayInterval) clearInterval(autoplayInterval);
     autoplayInterval = null;
     document.getElementById('autoplayIndicator').style.display = 'none';
+    inlineAutoplay.forEach(el => el.style.display = 'none');
   }
 
   document.addEventListener('keydown', (e) => {
