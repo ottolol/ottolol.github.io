@@ -1479,8 +1479,10 @@
         false,
       );
 
-      // Start autoplay by default
-      startAutoplay();
+      // Start autoplay only on desktop
+      if (window.innerWidth > 768) {
+        startAutoplay();
+      }
     </script>
   </body>
 </html>
